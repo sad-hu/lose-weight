@@ -15,7 +15,7 @@ const source = [
 
 /*
   source 必须是可迭代的，且允许是一个树结构
-  args 的类型一般是 function 或 string 集合，如果处于集合的某项既不是 function 也不是 string，那么这个 arg 作为 string 一样处理
+  args 的类型是 function 或 string 或 function 和 string 的混合数组
 */
 function imap(source, ...args) {
   const isArray = Array.isArray(source)
