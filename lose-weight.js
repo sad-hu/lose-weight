@@ -1,23 +1,23 @@
-const source = [
-  {
-    "姓名": {
-      "configType": null,
-      "value": [
-        "jelly"
-      ],
-      "fileType": "9"
-    },
-    age: 28,
-    '[{}]': 'nullnull',
-    100: 100
-  }
-]
+// const source = [
+//   {
+//     "姓名": {
+//       "configType": null,
+//       "value": [
+//         "jelly"
+//       ],
+//       "fileType": "9"
+//     },
+//     age: 28,
+//     '[{}]': 'nullnull',
+//     100: 100
+//   }
+// ]
 
 /*
   source 必须是可迭代的，且允许是一个树结构
   args 的类型是 function 或 string 或 function 和 string 的混合数组
 */
-function imap(source, ...args) {
+function loseWeight(source, ...args) {
   const isArray = Array.isArray(source)
   let sourceLength = 0
   const argsLength = args.length
@@ -56,6 +56,7 @@ function imap(source, ...args) {
             break
           case 'string':
             // 暂时将连续空格作为特殊的字段名，加以保留
+            // 暂时允许字段名前后端有空格的情况存在
             if(fieldName) {
               out[fieldName] = item[fieldName]
             }else {
@@ -84,25 +85,31 @@ function imap(source, ...args) {
   return source.reduce(cb, [])
 }
 
-const rt = imap(
-  source,
-  function 姓名(item) {
-    return item.value[0]
-  },
-  'age',
-  {},
-  null,
-  Symbol(),
-  false,
-  undefined,
-  0,
-  '[{}]',
-  100,
-  function() {},
-  '',
-  '    '
-)
+// 导出一个包含 loseWeight 函数的对象
+exports.loseWeight = loseWeight
+// 直接导出一个 loseWeight 函数
+// module.exports = loseWeight
 
-console.log(rt)
+
+// const rt = imap(
+//   source,
+//   function 姓名(item) {
+//     return item.value[0]
+//   },
+//   'age',
+//   {},
+//   null,
+//   Symbol(),
+//   false,
+//   undefined,
+//   0,
+//   '[{}]',
+//   100,
+//   function() {},
+//   '',
+//   '    '
+// )
+
+// console.log(rt)
 
 // console.log(typeof(Symbol()))
