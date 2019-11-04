@@ -48,17 +48,26 @@ function imap(source, ...args) {
         const fieldName = t === 'function' ? arg.name : arg
         switch(t) {
           case 'function':
-            out[fieldName] = arg(item[fieldName])
+            if(fieldName) {
+              out[fieldName] = arg(item[fieldName])
+            }else {
+              console.log(`不支持匿名函数作为字段处理函数，已忽略！`)
+            }
             break
-          // 以下写法据说老版本的 js 引擎有人提交过 bug
-          // 但是在最近（2019年）看到过这样的写法
-          // 意思是 string 和 number 类型都能满足
           case 'string':
+            // 暂时将连续空格作为特殊的字段名，加以保留
+            if(fieldName) {
+              out[fieldName] = item[fieldName]
+            }else {
+              console.log(`不支持空字符串 "${fieldName}" 作为字段名，已忽略！`)
+            }
+            break
           case 'number':
             out[fieldName] = item[fieldName]
             break
           default:
-            console.log(`不支持 ${JSON.stringify(arg)} 作为字段名，已忽略！`)
+            const msg = t === 'symbol' ? arg.toString() : JSON.stringify(arg)
+            console.log(`不支持 ${msg} 作为字段名，已忽略！`)
             break
         }
       }
@@ -89,7 +98,11 @@ const rt = imap(
   0,
   '[{}]',
   100,
-  function() {}
+  function() {},
+  '',
+  '    '
 )
 
 console.log(rt)
+
+// console.log(typeof(Symbol()))
