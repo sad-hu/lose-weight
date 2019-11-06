@@ -1,13 +1,15 @@
 /*
   source 必须是可迭代的，且允许是一个树结构
-  args 的类型是 function 或 string 或 function 和 string 的混合数组
+  handlers 的类型是 function 或 string 或 function 和 string 的混合数组
+
+  Rest parameter
 */
 
-function validateArguments(source, args) {
+function validateArguments(source, handlers) {
   const errors = [
     'source 的类型要求是 Array！',
     'source 不能为空数组！',
-    'args 长度为 0，意味着 source 无需处理！'
+    'handlers 长度为 0，意味着 source 无需处理！'
   ]
   const isArray = Array.isArray(source)
   
@@ -21,7 +23,7 @@ function validateArguments(source, args) {
     return false
   }
 
-  if(args.length === 0) {
+  if(handlers.length === 0) {
     console.error(errors[2])
     return false
   }
@@ -31,7 +33,7 @@ function validateArguments(source, args) {
 }
 
 
-function reduceCallbackCurry(args) {
+function reduceCallbackCurry(handlers) {
   const errors = [
     '不支持匿名函数作为字段处理函数，已忽略！',
     '不支持空字符串 "" 作为字段名，已忽略！',
@@ -42,7 +44,7 @@ function reduceCallbackCurry(args) {
   return function reduceCallback(accumulator, sourceItem) {
     const resultItem = {}
     // const resultItem = new Map()
-    for(const arg of args) {
+    for(const arg of handlers) {
       const t = typeof(arg)
       const fieldName = t === 'function' ? arg.name : arg
       switch(t) {
@@ -98,16 +100,15 @@ function reduceCallbackCurry(args) {
   }
 }
 
-
-function loseWeight(source, ...args) {
+function loseWeight(source, ...handlers) {
   
   // 以上是参数验证
-  if(!validateArguments(source, args)) {
+  if(!validateArguments(source, handlers)) {
     return
   }
   
   // 暂时有效的 sourceItem 类型是 object
-  return source.reduce(reduceCallbackCurry(args), [])
+  return source.reduce(reduceCallbackCurry(handlers), [])
 
 }
 
