@@ -38,7 +38,8 @@ const source = [
     '[{}]': 'nullnull',
     100: 100,
     ' blank  ': 'blank'
-  }
+  },
+  {x: 'x', y: 'y', z: 'z'}
 ]
 
 function loseWeightAsync(source, ...args) {
@@ -52,12 +53,12 @@ function loseWeightAsync(source, ...args) {
 
   // 暂时有效的 source 类型是 array
   if(!isArray || sourceLength === 0) {
-    console.log('source 的类型要求是 Array！且长度不为 0')
+    console.error('source 的类型要求是 Array！且长度不为 0')
     return
   }
 
   if(argsLength === 0) {
-    console.log('args 参数长度为 0，意味着数据无需处理！')
+    console.error('args 参数长度为 0，意味着数据无需处理！')
     return
   }
 
@@ -66,44 +67,51 @@ function loseWeightAsync(source, ...args) {
   // 核心累加器
   const cb = (function iife1(args) {
     return async function fn1(accumulator, item) {
-      const out = {}
+      const promises = []
+      const fieldNames = []
       for(const arg of args) {
         const t = typeof(arg)
         const fieldName = t === 'function' ? arg.name : arg
         switch(t) {
           case 'function':
             if(fieldName) {
-              out[fieldName] = await arg(item[fieldName])
+              fieldNames.push(fieldName)
+              promises.push(arg(item[fieldName]))
               console.log('fieldName', fieldName)
             }else {
-              console.log(`不支持匿名函数作为字段处理函数，已忽略！`)
+              console.error(`不支持匿名函数作为字段处理函数，已忽略！`)
             }
             break
           case 'string':
             // 暂时将连续空格作为特殊的字段名，加以保留
             // 暂时允许字段名前后端有空格的情况存在
             if(fieldName) {
-              out[fieldName] = item[fieldName]
+              fieldNames.push(fieldName)
+              promises.push(item[fieldName])
             }else {
-              console.log(`不支持空字符串 "${fieldName}" 作为字段名，已忽略！`)
+              console.error(`不支持空字符串 "${fieldName}" 作为字段名，已忽略！`)
             }
             break
           case 'number':
-            out[fieldName] = item[fieldName]
+            fieldNames.push(fieldName)
+            promises.push(item[fieldName])
             break
           default:
             const msg = t === 'symbol' ? arg.toString() : JSON.stringify(arg)
-            console.log(`不支持 ${msg} 作为字段名，已忽略！`)
+            console.error(`不支持 ${msg} 作为字段名，已忽略！`)
             break
         }
+      }
+      const arr = await Promise.all(promises)
+      const out = {}
+      while(fieldNames.length && arr.length) {
+        out[fieldNames.pop()] = arr.pop()
       }
       accumulator = await accumulator
       if(Object.keys(out).length > 0) {
         accumulator.push(out)
-        return accumulator
-      }else {
-        return accumulator
       }
+      return accumulator
     }
   })(args)
 
@@ -118,7 +126,11 @@ function loseWeightAsync(source, ...args) {
       // return item.value[0]
       const promise = new Promise(function(resolve, reject) {
         setTimeout(function() {
-          resolve(`${item.value[0]}称呼`)
+          if(item && item.value && item.value[0]) {
+            resolve(`${item.value[0]}称呼`)
+          }else {
+            resolve(undefined)
+          }
         }, 1200)
       })
       return await promise.then()
@@ -126,7 +138,11 @@ function loseWeightAsync(source, ...args) {
     async function age(item) {
       const promise = new Promise(function(resolve, reject) {
         setTimeout(function() {
-          resolve(`${item}岁`)
+          if(item) {
+            resolve(`${item}岁`)
+          }else {
+            resolve(undefined)
+          }
         }, 1200)
       })
       return await promise.then()
@@ -134,7 +150,11 @@ function loseWeightAsync(source, ...args) {
     async function birth(item) {
       const promise = new Promise(function(resolve, reject) {
         setTimeout(function() {
-          resolve(`${item}生日`)
+          if(item) {
+            resolve(`${item}生日`)
+          }else {
+            resolve(undefined)
+          }
         }, 1200)
       })
       return await promise.then()
