@@ -1,5 +1,5 @@
 {
-  "name": "lose-weight",
+  "name": "@jkt/lose-weight",
   "version": "1.0.0",
   "description": "为接口返回数据瘦身，只提取需要的字段，并可将其格式化",
   "main": "lose-weight.js",
@@ -14,10 +14,8 @@
     "url": "git@git.geedos.com:ft/lose-weight.git"
   },
   "contributors": [
-    {
-      "name": "jayden",
-      "email": "jaydenhu@careerintlinc.com"
-    }
+    "jayden <jaydenhu@careerintlinc.com>"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "author": ""
 }
