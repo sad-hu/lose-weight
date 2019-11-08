@@ -59,6 +59,112 @@ console.log(
     )
 )
 
+console.log('original source\n', source)
+
+console.log(loseWeight(
+  [
+    {name: 'Jane', age: 30, sex: 0, level: 1}, 
+    {name: 'John', age: 20, sex: 1, level: 0}
+  ]
+)
+.opt(
+  // options
+  {
+    sex: ['女', '男'], // 性别
+    level: ['新手', '普通', '专家'] // 等级
+  }
+)
+.handleBy(
+  function sex(value, options) {
+    return options[value]
+  },
+  function level(value, options) {
+    return options[value]
+  }
+))
+
+console.log(loseWeight(
+  [
+    {name: 'Jane', age: 30, sex: 0, level: 1}, 
+    {name: 'John', age: 20, sex: 1, level: 0}
+  ]
+)
+.opt(
+  // options
+  // {
+  //   sex: ['女', '男'], // 性别
+  //   level: ['新手', '普通', '专家'] // 等级
+  // }
+)
+.handleBy(
+  // 在不传递 options 的情况下，字段处理函数需要自行判断 options 的可用性
+  function sex(value, options) {
+    return options ? options[value] : value
+  },
+  function level(value, options) {
+    return options ? options[value] : value
+  }
+))
+
+console.log(
+  loseWeight(
+    [
+      {name: 'Jane', age: 30, sex: 0, level: 1}, 
+      {name: 'John', age: 20, sex: 1, level: 0}
+    ]
+  )
+  .opt(
+    // options
+    // {
+    //   sex: ['女', '男'], // 性别
+    //   level: ['新手', '普通', '专家'] // 等级
+    // }
+  )
+  .handleBy(
+    // 在不传递 options 的情况下，字段处理函数需要自行判断 options 的可用性
+    'name',
+    'age'
+  )
+)
+
+console.log(
+  loseWeight(
+    [
+      {name: 'Jane', age: 30, sex: 0, level: 1}, 
+      {name: 'John', age: 20, sex: 1, level: 0}
+    ]
+  )
+  .opt(
+    // options
+    {
+      sex: ['女', '男'], // 性别
+      level: ['新手', '普通', '专家'] // 等级
+    }
+  )
+  .handleBy(
+    // ...handlers
+    'name',
+    function level(value, options) {
+      return options ? options[value] : value
+    }
+  )
+)
+
+
+// const fns = [
+//   function a() {
+//     return 'a'
+//   },
+//   function b() {
+//     return 'b'
+//   }
+// ]
+
+// function gofns(...args) {
+//   console.log(arguments[0])
+// }
+
+// gofns(...fns)
 
 /* 
 // 旧实现的测试用例
