@@ -3,19 +3,19 @@
   "version": "1.0.0",
   "description": "为接口返回数据瘦身，只提取需要的字段，并可将其格式化",
   "main": "lose-weight.js",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
     "test": "node test"
   },
   "repository": {
     "type": "git",
-    "url": "git@git.geedos.com:ft/lose-weight.git"
+    "url": "https://git.geedos.com/ft/lose-weight.git"
+  },
+  "bugs": {
+    "url": "https://git.geedos.com/ft/lose-weight/issues"
   },
   "contributors": [
     "jayden <jaydenhu@careerintlinc.com>"
   ],
   "license": "MIT",
-  "author": ""
+  "author": "jayden <jaydenhu@careerintlinc.com>"
 }
