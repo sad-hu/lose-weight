@@ -27,8 +27,8 @@ console.log(
         if(item) return `username：${item.value[0]}`
         return undefined
       },
-      function age(item) {
-        if(item) return `${item}岁`
+      function age(value) {
+        if(value) return `${value}岁`
         return undefined
       },
       // function birth(item, options) {
@@ -48,11 +48,11 @@ console.log(
       '',
       '    ',
       ' blank  ',
-      function sex(item, options) {
+      function sex(value, options) {
         // console.log('sex item, options', item, options)
         // return `gender${item}`
-        if(typeof(item) === 'number') {
-          return options[item]
+        if(typeof(value) === 'number') {
+          return options[value]
         }
         return undefined
       }
@@ -165,38 +165,3 @@ console.log(
 // }
 
 // gofns(...fns)
-
-/* 
-// 旧实现的测试用例
-const rt = thin(
-  source,
-  // Object, // 如果非要这样 hack，暂时无法有效阻止！
-  function 姓名(item) {
-    if(item) return `username：${item.value[0]}`
-    return undefined
-  },
-  function age(item) {
-    if(item) return `${item}岁`
-    return undefined
-  },
-  function birth(item) {
-    if(item) return `生日：${item}`
-    return undefined
-  },
-  {},
-  null,
-  Symbol(),
-  false,
-  undefined,
-  0,
-  '[{}]',
-  100,
-  function() {},
-  '',
-  '    ',
-  ' blank  '
-)
-
-console.log(rt) 
-
-*/
