@@ -1,10 +1,3 @@
-/*
-  source 必须是可迭代的，且允许是一个树结构
-  handlers 的类型是 function 或 string 或 function 和 string 的混合数组
-
-  Rest parameter
-*/
-
 function loseWeight(source) {
 
   function validateSource(source) {
@@ -85,7 +78,7 @@ function loseWeight(source) {
                 }
                 break
               case 'string':
-                // 暂时将连续空格作为特殊的字段名
+                // 暂时允许连的续空格作为特殊的字段名
                 // 暂时允许字段名前后端有空格的情况存在
                 if(fieldName) {
                   resultItem[fieldName] = sourceItem[fieldName]
