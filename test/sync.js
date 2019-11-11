@@ -23,38 +23,40 @@ console.log(
   loseWeight(source)
     .opt({sex: ['女', '男']})
     .handleBy(
-      function 姓名(item) {
-        if(item) return `username：${item.value[0]}`
-        return undefined
-      },
-      function age(value) {
-        if(value) return `${value}岁`
-        return undefined
-      },
-      // function birth(item, options) {
-      //   // console.log('birth item, options', item, options)
-      //   if(item) return `生日：${item}`
-      //   return undefined
-      // },
-      {},
-      null,
-      Symbol(),
-      false,
-      undefined,
-      0,
-      '[{}]',
-      100,
-      function() {},
-      '',
-      '    ',
-      ' blank  ',
-      function sex(value, options) {
-        // console.log('sex item, options', item, options)
-        // return `gender${item}`
-        if(typeof(value) === 'number') {
-          return options[value]
+      {
+        '姓名': function(item) {
+          if(item) return `username：${item.value[0]}`
+          return undefined
+        },
+        age(value) {
+          if(value) return `${value}岁`
+          return undefined
+        },
+        // function birth(item, options) {
+        //   // console.log('birth item, options', item, options)
+        //   if(item) return `生日：${item}`
+        //   return undefined
+        // },
+        [{}]: {},
+        [null]: null,
+        [Symbol()]: Symbol(),
+        [false]: false,
+        [undefined]: false,
+        0: 0,
+        '[{}]': '[{}]',
+        100: 100,
+        [function() {}]: function() {},
+        '': '',
+        '    ': '    ',
+        ' blank  ': ' blank  ',
+        sex(value, options) {
+          // console.log('sex item, options', item, options)
+          // return `gender${item}`
+          if(typeof(value) === 'number') {
+            return options[value]
+          }
+          return undefined
         }
-        return undefined
       }
     )
 )
@@ -75,11 +77,13 @@ console.log(loseWeight(
   }
 )
 .handleBy(
-  function sex(value, options) {
-    return options[value]
-  },
-  function level(value, options) {
-    return options[value]
+  {
+    sex(value, options) {
+      return options[value]
+    },
+    level(value, options) {
+      return options[value]
+    }
   }
 ))
 
@@ -97,12 +101,14 @@ console.log(loseWeight(
   // }
 )
 .handleBy(
-  // 在不传递 options 的情况下，字段处理函数需要自行判断 options 的可用性
-  function sex(value, options) {
-    return options ? options[value] : value
-  },
-  function level(value, options) {
-    return options ? options[value] : value
+  {
+    // 在不传递 options 的情况下，字段处理函数需要自行判断 options 的可用性
+    sex(value, options) {
+      return options ? options[value] : value
+    },
+    level(value, options) {
+      return options ? options[value] : value
+    }
   }
 ))
 
@@ -121,9 +127,11 @@ console.log(
     // }
   )
   .handleBy(
+    {
     // 在不传递 options 的情况下，字段处理函数需要自行判断 options 的可用性
-    'name',
-    'age'
+      name: 'name',
+      age: 'age'
+    }
   )
 )
 
@@ -142,10 +150,12 @@ console.log(
     }
   )
   .handleBy(
-    // ...handlers
-    'name',
-    function level(value, options) {
-      return options ? options[value] : value
+    {
+      // ...handlers
+      name: 'name',
+      level(value, options) {
+        return options ? options[value] : value
+      }
     }
   )
 )
