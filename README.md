@@ -1,5 +1,12 @@
 # lose-weight
 
+## 发布概要
+
+### 1.0.3
+
+- 修复 handlers 中函数项的函数名被前端代码压缩工具处理后，函数名被混淆，无法通过 `函数.name` 获取期望的函数名
+
+
 ## 术语
 
 - 有效字段
@@ -71,9 +78,9 @@ import {loseWeight} from '@jkt/lose-weight'
 
 ``` javascript
 // 第 1 种
-loseWeight(source).opt(options).handleBy(...handlers)
+loseWeight(source).opt(options).handleBy(handlers)
 // 第 2 种
-loseWeight(source).handleBy(...handlers)
+loseWeight(source).handleBy(handlers)
 ```
 
 ### 参数
@@ -91,10 +98,8 @@ loseWeight(
     ]
   )
   .opt(options)
-  .handleBy(...handlers)
+  .handleBy(handlers)
 ```
-
-注意：source 各项中的字段名应避开 javascript 中的保留字！下文会有相关提及！
 
 #### options
 
@@ -115,19 +120,19 @@ loseWeight(
       level: ['新手', '普通', '专家'] // 等级
     }
   )
-  .handleBy(...handlers)
+  .handleBy(handlers)
 ```
 
 注意：options 中的 key（即示例中 sex 和 level）和 source 各项中的某字段名对应。从“调用语法”的第 2 种来看，也可以不链式调用 opt，意味着无需字段选项！
 
 
-#### handlers（rest parameter）
+#### handlers
 
-handlers 类型是数组，其中各项可以是 function 类型或 string 类型
+handlers 类型是 object，其中各字段值可以是 function 类型或 string 类型。handlers 的字段名必须与 source 各项中的某字段名对应
 
-##### 如果项是 function 类型
+##### 如果字段值是 function 类型
 
-这个 function 作为字段处理函数，必须具名，且名称与 source 各项中的某字段名对应，传参示例如下：
+传参示例如下：
 
 ``` javascript
 loseWeight(
@@ -145,29 +150,31 @@ loseWeight(
     }
   )
   .handleBy(
-    // ...handlers
-    function sex(value, options) {
-      return options ? options[value] : value
-    },
-    function level(value, options) {
-      return options ? options[value] : value
+    {
+      // ...handlers
+      sex(value, options) {
+        return options ? options[value] : value
+      },
+      level(value, options) {
+        return options ? options[value] : value
+      }
     }
   )
 ```
 
-字段处理函数在调用时，会传入 2 个参数：
+字段处理方法在调用时，会传入 2 个参数：
 
 1. 第 1 个（示例中的 value）是 source 某项中某个字段的值
 2. 第 2 个可选，默认值 undefined（示例中的 options）是当前字段的选项
 
     例如 source 某项中某个字段名为 level，且通过链式调用 opt 传递了 level 这个字段的选项，那么在相应字段处理函数中第 2 个参数即为 `['新手', '普通', '专家']`
 
-注意：假如字段名是 javascript 保留字，例如 `function class(value, options) {}`，运行时会抛出异常或得到非预期的结果，所以前面说注意 source 各项中的字段名，应该避开 javascript 保留字。本工具的用户，必须自行判断 options 的可用性，在没有传递相应字段选项，且未检查字段选项可用性的情况下，使用参数 options 会导致运行时抛出异常！
+注意：本工具的用户，必须自行判断 options 的可用性，在没有传递相应字段选项，且未检查字段选项可用性的情况下，使用参数 options 会导致运行时抛出异常！
 
 
-##### 如果项是 string 类型
+##### 如果字段值是 string 类型
 
-这个字符串的值与 source 各项中的某个字段名对应，示例如下：
+这个字段名与 source 各项中的某个字段名对应，字段值一般来说和字段名相同，但至少保证是 string 类型。示例如下：
 
 ``` javascript
 loseWeight(
@@ -178,13 +185,18 @@ loseWeight(
     ]
   )
   .handleBy(
-    // ...handlers
-    'name',
-    'age'
+    {
+      // ...handlers
+      name : 'name',
+      age: 'age'
+    }
   )
 ```
 
-##### 如果是混合 function 类型的项和 string 类型的项
+注意：再次提醒，字段值一般来说和字段名相同，但至少保证是 string 类型！
+
+
+##### 如果字段值是 function 类型和 string 类型的混合
 
 示例如下：
 
@@ -204,10 +216,12 @@ loseWeight(
     }
   )
   .handleBy(
-    // ...handlers
-    'name',
-    function level(value, options) {
-      return options ? options[value] : value
+    {
+      // ...handlers
+      name: 'name',
+      level(value, options) {
+        return options ? options[value] : value
+      }
     }
   )
 ```
