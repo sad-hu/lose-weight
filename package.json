@@ -1,6 +1,6 @@
 {
   "name": "@jkt/lose-weight",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "为接口返回数据瘦身，只提取需要的字段，并可将其格式化",
   "keywords": [
     "lose",
