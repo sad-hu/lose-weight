@@ -37,12 +37,12 @@ function loseWeight(source) {
         }
 
         if(typeof(handlers) !== 'object') {
-          console.log(errors[1])
+          console.error(errors[1])
           return false
         }
 
         if(Object.keys(handlers).length === 0) {
-          console.log(errors[2])
+          console.error(errors[2])
           return false
         }
         
