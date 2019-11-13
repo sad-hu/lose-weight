@@ -16,7 +16,7 @@ const source = [
     ' blank  ': 'blank',
     sex: 1
   },
-  {x: 'x', y: 'y', z: 'z'}
+  {x: 'x', y: 'y', z: 'z', 0: '000'}
 ]
 
 console.log(
@@ -37,16 +37,17 @@ console.log(
         //   if(item) return `生日：${item}`
         //   return undefined
         // },
-        [{}]: {},
+        [{a: 'a'}]: '{}',
         [null]: null,
-        [Symbol()]: Symbol(),
+        [Symbol('b')]: 'symbol(b)',
         [false]: false,
         [undefined]: false,
         0: 0,
         '[{}]': '[{}]',
         100: 100,
         [function() {}]: function() {},
-        '': '',
+        '': function(value) {return value},
+        // '': '',/
         '    ': '    ',
         ' blank  ': ' blank  ',
         sex(value, options) {
