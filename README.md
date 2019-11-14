@@ -89,7 +89,7 @@ loseWeight(source).handleBy(handlers)
 
 #### source
 
-source 的类型必须是 `Array`，其中各项类型是自定义对象 `object`，传参示例如下：
+source 的类型必须是 `Array`，其中各项类型是自定义对象 `Object`，传参示例如下：
 
 ``` javascript
 loseWeight(
@@ -105,7 +105,7 @@ loseWeight(
 
 #### options
 
-options 类型是自定义对象 `object`，是 source 各项中部分（甚至全部）字段的选项。例如 sex 性别字段的选项是 `['女', '男']`；level 等级字段值的选项为 `['新手', '普通', '专家']`；传参示例如下：
+options 类型是自定义对象 `Object`，是 source 各项中部分（甚至全部）字段的选项。例如 sex 性别字段的选项是 `['女', '男']`；level 等级字段值的选项为 `['新手', '普通', '专家']`；传参示例如下：
 
 ``` javascript
 loseWeight(
@@ -130,9 +130,9 @@ loseWeight(
 
 #### handlers
 
-handlers 类型是 object，其中各字段值可以是 function 类型或 string 类型。handlers 的字段名必须与 source 各项中的某字段名对应
+handlers 类型是 Object，其中各字段值可以是 Function 类型或 String 类型。handlers 的字段名必须与 source 各项中的某字段名对应
 
-##### 如果字段值是 function 类型
+##### 如果字段值是 Function 类型
 
 传参示例如下：
 
@@ -174,9 +174,9 @@ loseWeight(
 注意：本工具的用户，必须自行判断 options 的可用性，在没有传递相应字段选项，且未检查字段选项可用性的情况下，使用参数 options 会导致运行时抛出异常！
 
 
-##### 如果字段值是 string 类型
+##### 如果字段值是 String 类型
 
-这个字段名与 source 各项中的某个字段名对应，字段值一般来说和字段名相同，但至少保证是 string 类型。示例如下：
+这个字段名与 source 各项中的某个字段名对应，字段值一般来说和字段名相同，但至少保证是 String 类型。示例如下：
 
 ``` javascript
 loseWeight(
@@ -195,10 +195,10 @@ loseWeight(
   )
 ```
 
-注意：再次提醒，字段值一般来说和字段名相同，但至少保证是 string 类型！
+注意：再次提醒，字段值一般来说和字段名相同，但至少保证是 String 类型！
 
 
-##### 如果字段值是 function 类型和 string 类型的混合
+##### 如果字段值是 Function 类型和 String 类型的混合
 
 示例如下：
 
@@ -230,7 +230,7 @@ loseWeight(
 
 ### 返回值
 
-类型是 Array，其中各项类型为自定义对象 `object`，自定义对象的字段名即 handlers 里字段处理函数的名字或字符串的值，示例如下：
+类型是 Array，其中各项类型为自定义对象 `Object`，自定义对象的字段名即 handlers 里字段处理函数的名字或字符串的值，示例如下：
 
 ``` javascript
 [
@@ -274,6 +274,7 @@ loseWeight(
 
 ## 更新概要
 
+- 1.0.8 修正文档用词
 - 1.0.7 修复代码 bug，更正错误提示，修正提示方法
 - 1.0.6 修正 API 锚点链接
 - 1.0.5 添加环境要求说明，更新文档
