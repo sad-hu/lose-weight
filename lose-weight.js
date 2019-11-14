@@ -27,7 +27,7 @@ function loseWeight(source) {
       function validateHandlers(handlers) {
         const errors = [
           'handlers 为 undefined 意味着 source 无需被处理',
-          'handlers 的类型必须是 object',
+          'handlers 的类型必须是 Object',
           'handlers 里未包含字段处理方法，意味着 source 无法被处理'
         ]
 
@@ -37,12 +37,12 @@ function loseWeight(source) {
         }
 
         if(typeof(handlers) !== 'object') {
-          console.log(errors[1])
+          console.error(errors[1])
           return false
         }
 
         if(Object.keys(handlers).length === 0) {
-          console.log(errors[2])
+          console.error(errors[2])
           return false
         }
         
@@ -56,20 +56,23 @@ function loseWeight(source) {
       function reduceCallbackCurry(handlers) {
         const errors = [
           '不支持空字符串 "" 作为字段处理方法名，已忽略！',
-          '不支持空字符串 "" 作为字段名，已忽略！',
-          '不支持 "%s" 作为字段名，已忽略！'
+          '不支持空字符串 "" 作为字段名，已忽略！'
         ]
         const errorCounter = {}
       
         return function reduceCallback(accumulator, sourceItem) {
           const resultItem = {}
           const keys = Object.keys(handlers)
+          
           for(const fieldName of keys) {
-            const t = typeof(handlers[fieldName])
-            switch(t) {
+            const fieldValueType = typeof(handlers[fieldName])
+            switch(fieldValueType) {
               case 'function':
                 if(fieldName) {
-                  resultItem[fieldName] = handlers[fieldName](sourceItem[fieldName], (collection.fieldsOptions || {})[fieldName] )
+                  resultItem[fieldName] = handlers[fieldName](
+                    sourceItem[fieldName], 
+                    (collection.fieldsOptions || {})[fieldName]
+                  )
                 }else {
                   if(!errorCounter[errors[0]]) {
                     console.error(errors[0])
@@ -77,9 +80,7 @@ function loseWeight(source) {
                   }
                 }
                 break
-              case 'string':
-                // 暂时允许连的续空格作为特殊的字段名
-                // 暂时允许字段名前后端有空格的情况存在
+              default:
                 if(fieldName) {
                   resultItem[fieldName] = sourceItem[fieldName]
                 }else {
@@ -88,17 +89,7 @@ function loseWeight(source) {
                     errorCounter[errors[1]] = errors[1]
                   }
                 }
-                break
-              case 'number':
-                resultItem[fieldName] = sourceItem[fieldName]
-                break
-              default:
-                const msg = fieldName.toString()
-                if(!errorCounter[errors[2] + msg]) {
-                  console.error(errors[2], msg)
-                  errorCounter[errors[2] + msg] = errors[2] + msg
-                }
-                break
+                break;
             }
           }
       
