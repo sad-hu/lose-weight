@@ -28,7 +28,7 @@ function loseWeight(source) {
         const errors = [
           'handlers 为 undefined 意味着 source 无需被处理',
           'handlers 的类型必须是 Object',
-          'handlers 里未包含字段处理方法，意味着 source 无法被处理'
+          'handlers 里未包含字段名或字段处理方法，意味着 source 无法被处理'
         ]
 
         if(!handlers) {

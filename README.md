@@ -40,7 +40,6 @@
 - 需要支持 Array.isArray api
 - 需要支持 Array.prototype.reduce api
 - 需要支持 Object.keys api
-- console.log api 需要支持"字符串替换"功能
 
 在 nodejs 运行时环境：
 
@@ -278,6 +277,7 @@ loseWeight(
 
 ## 更新概要
 
+- 修缮错误提示，修缮文档
 - 修复代码 bug，更正错误提示，修正提示方法，修缮文档用词
 - 修正文档锚点错误
 - 修正 API 锚点链接
