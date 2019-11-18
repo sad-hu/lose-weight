@@ -36,7 +36,6 @@
 
 在用户代理 ua（以下简称 ua） 运行时环境；
 
-- 需要有内建对象 JSON
 - 需要支持 Array.isArray api
 - 需要支持 Array.prototype.reduce api
 - 需要支持 Object.keys api
@@ -277,6 +276,7 @@ loseWeight(
 
 ## 更新概要
 
+- 剔除无用段落
 - 修缮文档用词
 - 修缮错误提示，修缮文档
 - 修复代码 bug，更正错误提示，修正提示方法，修缮文档用词
