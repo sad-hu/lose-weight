@@ -78,9 +78,9 @@ import {loseWeight} from '@jkt/lose-weight'
 
 ``` javascript
 // 第 1 种
-loseWeight(source).opt(options).handleBy(handlers)
+const need = loseWeight(source).opt(options).handleBy(handlers)
 // 第 2 种
-loseWeight(source).handleBy(handlers)
+const want = loseWeight(source).handleBy(handlers)
 ```
 
 ### 参数
@@ -123,7 +123,7 @@ loseWeight(
   .handleBy(handlers)
 ```
 
-注意：options 中的 key（即示例中 sex 和 level）和 source 各项中的某字段名对应。从“调用语法”的第 2 种来看，也可以不链式调用 opt，意味着无需字段选项！
+注意：options 中的 key（即示例中 sex 和 level）和 source 各项中的某字段名对应。从“调用语法”的第 2 种来看，也可以不链式调用 opt 方法，意味着无需字段选项！
 
 
 #### handlers
@@ -150,8 +150,8 @@ loseWeight(
     }
   )
   .handleBy(
+    // handlers
     {
-      // ...handlers
       sex(value, options) {
         return options ? options[value] : value
       },
@@ -167,7 +167,7 @@ loseWeight(
 1. 第 1 个（示例中的 value）是 source 某项中某个字段的值
 2. 第 2 个可选，默认值 undefined（示例中的 options）是当前字段的选项
 
-    例如 source 某项中某个字段名为 level，且通过链式调用 opt 传递了 level 这个字段的选项，那么在相应字段处理函数中第 2 个参数即为 `['新手', '普通', '专家']`
+    例如 source 某项中某个字段名为 level，且通过链式调用 opt 传递了 level 这个字段的选项，那么在相应字段处理方法中第 2 个参数即为 `['新手', '普通', '专家']`
 
 注意：本工具的用户，必须自行判断 options 的可用性，在没有传递相应字段选项，且未检查字段选项可用性的情况下，使用参数 options 会导致运行时抛出异常！
 
@@ -185,8 +185,8 @@ loseWeight(
     ]
   )
   .handleBy(
+    // handlers
     {
-      // ...handlers
       name : 'name',
       age: 'age'
     }
@@ -216,8 +216,8 @@ loseWeight(
     }
   )
   .handleBy(
+    // handlers
     {
-      // ...handlers
       name: 'name',
       level(value, options) {
         return options ? options[value] : value
@@ -228,7 +228,7 @@ loseWeight(
 
 ### 返回值
 
-类型是 Array，其中各项类型为自定义对象 `Object`，自定义对象的字段名即 handlers 里字段处理函数的名字或字符串的值，示例如下：
+类型是 Array，其中各项类型为自定义对象 `Object`，自定义对象的字段名即 handlers 里字段处理方法的名字或字符串的值，示例如下：
 
 ``` javascript
 [
@@ -272,6 +272,7 @@ loseWeight(
 
 ## 更新概要
 
+- 1.0.12 重命名测试文件，修缮文档，修缮示例代码和注释
 - 1.0.11 剔除无用段落
 - 1.0.10 修缮文档用词
 - 1.0.9 修缮错误提示，修缮文档
