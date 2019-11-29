@@ -11,16 +11,23 @@
   "scripts": {
     "test": "node test"
   },
+  "homepage": "https://github.com/sad-hu/lose-weight#readme",
   "repository": {
     "type": "git",
-    "url": "https://git.geedos.com/ft/lose-weight.git"
+    "url": "https://github.com/sad-hu/lose-weight.git"
   },
   "bugs": {
-    "url": "https://git.geedos.com/ft/lose-weight/issues"
+    "url": "https://github.com/sad-hu/lose-weight/issues"
   },
   "contributors": [
-    "jayden <jaydenhu@careerintlinc.com>"
+    { 
+      "name" : "sadhu", 
+      "email" : "sad.hu@outlook.com"
+    }
   ],
   "license": "MIT",
-  "author": "jayden <jaydenhu@careerintlinc.com>"
+  "author": { 
+    "name" : "sadhu", 
+    "email" : "sad.hu@outlook.com"
+  }
 }

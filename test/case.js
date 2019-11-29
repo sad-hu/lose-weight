@@ -160,19 +160,3 @@ console.log(
     }
   )
 )
-
-
-// const fns = [
-//   function a() {
-//     return 'a'
-//   },
-//   function b() {
-//     return 'b'
-//   }
-// ]
-
-// function gofns(...args) {
-//   console.log(arguments[0])
-// }
-
-// gofns(...fns)
