@@ -1,6 +1,6 @@
 {
   "name": "@jkt/lose-weight",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "为接口返回数据瘦身，只提取需要的字段，并可将其格式化",
   "keywords": [
     "lose",
@@ -14,20 +14,17 @@
   "homepage": "https://github.com/sad-hu/lose-weight#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sad-hu/lose-weight.git"
+    "url": "git+https://github.com/sad-hu/lose-weight.git"
   },
   "bugs": {
     "url": "https://github.com/sad-hu/lose-weight/issues"
   },
   "contributors": [
-    { 
-      "name" : "sadhu", 
-      "email" : "sad.hu@outlook.com"
-    }
+    "sadhu <sad.hu@outlook.com>"
   ],
   "license": "MIT",
-  "author": { 
-    "name" : "sadhu", 
-    "email" : "sad.hu@outlook.com"
+  "author": "sadhu <sad.hu@outlook.com>",
+  "directories": {
+    "test": "test"
   }
 }
