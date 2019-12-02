@@ -1,3 +1,24 @@
+function throwError(description) {
+  throw new Error(description)
+}
+
+function curring(fn) {
+  return function choose(...parameters) {
+
+  }
+}
+
+// 提示需要剩余参数支持
+function choose(...parameters) {
+  if(parameters.length === 0) {
+    throwError('函数 choose 的参数不存在！')
+  }
+}
+
+
+exports.choose = choose
+
+/* 
 function loseWeight(source) {
 
   function validateSource(source) {
@@ -146,4 +167,4 @@ function loseWeight(source) {
 exports.loseWeight = loseWeight
 // 直接导出一个 loseWeight 函数
 // module.exports = loseWeight
-
+ */

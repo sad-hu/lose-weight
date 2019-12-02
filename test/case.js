@@ -1,3 +1,8 @@
+const {choose} = require('../lose-weight')
+
+choose()
+
+/*
 const {loseWeight} = require('../lose-weight')
 
 const source = [
@@ -160,3 +165,4 @@ console.log(
     }
   )
 )
+*/
