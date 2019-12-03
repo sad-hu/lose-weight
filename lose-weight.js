@@ -1,22 +1,28 @@
+'use strict'
+
+function assist(handle, thisArg, ...optionsOrTools) {
+  return handle.bind(
+    thisArg,
+    ...optionsOrTools
+  )
+}
+
 function throwError(description) {
   throw new Error(description)
 }
 
-function curring(fn) {
-  return function choose(...parameters) {
-
-  }
-}
-
 // 提示需要剩余参数支持
-function choose(...parameters) {
+function choose(throwError, ...parameters) {
+  console.log('throwError.name', throwError.name)
+  console.log('parameters', parameters)
+  console.log('this', this)
   if(parameters.length === 0) {
-    throwError('函数 choose 的参数不存在！')
+    throwError('函数 choose 缺少参数！')
   }
 }
 
 
-exports.choose = choose
+exports.choose = assist(choose, undefined, throwError)
 
 /* 
 function loseWeight(source) {
