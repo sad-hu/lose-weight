@@ -1,3 +1,5 @@
+'use strict'
+
 function loseWeight(source) {
 
   function validateSource(source) {
