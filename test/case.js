@@ -1,8 +1,10 @@
 const {choose} = require('../lose-weight')
 
-choose('key1', 'key2', 'key3', 'key4')
+// choose(' ', [' ', function() {}, 'null'])
+choose(' ', [' ', function() {}, 'null']).from([{[undefined]: undefined}, 'abc'])
+// choose('key1', 'key2', 'key3', 'key4')
 
-choose()
+// choose(function() {}, 'key', ['key2', 'newKey2'])
 
 /*
 const {loseWeight} = require('../lose-weight')
