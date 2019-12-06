@@ -1,7 +1,41 @@
-const {choose} = require('../lose-weight')
+const {choose, assist} = require('../lose-weight')
 
-// choose(' ', [' ', function() {}, 'null'])
-choose(' ', [' ', function() {}, 'null']).from([{[undefined]: undefined}, 'abc'])
+const source = [
+  {
+    [undefined]: 'un de fined'
+  },
+  {
+    a: 'a'
+  },
+  {
+    b: 'b'
+  }
+]
+const source2 = {b: 'bb'}
+
+const rt = choose(
+    'undefined', 
+    [
+      'a', 
+      assist(
+        function(awsl, value) {return value && value + `-made. ${this.omg}, the ${awsl}!`},
+        {omg: 'This is the this!'},
+        'AWSL'
+      ),
+      'null'
+    ]
+  )
+  .from(source)
+
+const rt2 = choose(
+    'undefined', 
+    ['a', function(awsl, value) {return value && value + `-made, ${awsl}!`}.bind(undefined, 'AWSL'), 'null']
+  )
+  .from(source2)
+
+
+console.log('rt', rt)
+console.log('rt2', rt2)
 // choose('key1', 'key2', 'key3', 'key4')
 
 // choose(function() {}, 'key', ['key2', 'newKey2'])

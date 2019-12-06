@@ -1,7 +1,7 @@
 'use strict'
 
-function assist(handle, thisArg, ...restParameters) {
-  return handle.bind(
+function assist(fn, thisArg, ...restParameters) {
+  return fn.bind(
     thisArg,
     ...restParameters
   )
@@ -10,10 +10,6 @@ function assist(handle, thisArg, ...restParameters) {
 function throwError(description) {
   throw new Error(description)
 }
-
-// function typeOf(parameter) {
-//   return Array.isArray(parameter) ? 'array' : typeof(parameter)
-// }
 
 const prepareParameters = assist(
   function(throwError, parameters) {
@@ -76,23 +72,9 @@ const prepareSource = assist(
       throwError('[ERROR] 函数 from 的参数类型必须是 Array 或 Object（可枚举），如果类型是 Array，其长度必须大于 0；如果是 Object，其可枚举属性的个数必须大于 0！')
     }
 
-    if(type === 'array') {
-      return source.reduce(
-        function(collection, item, index) {
-          if(
-            typeof(item) !== 'object' 
-            || Object.keys(item).length === 0
-          ) {
-            console.log(`[WARNING] 函数 from 的参数 source 中，数组第 ${index + 1} 项类型不是 Object 或是 Object，但其可枚举属性个数为 0！已忽略！`)
-          }else {
-            collection.push(item)
-          }
-          return collection
-        },
-        []
-      )
-    }else {
-      return source
+    return {
+      type,
+      source
     }
     
   },
@@ -100,30 +82,70 @@ const prepareSource = assist(
   throwError
 )
 
+function main(prepareParameters, assist, prepareSource, ...parameters) {
 
-// 提示需要剩余参数支持
-function choose(prepareParameters, assist, prepareSource, ...parameters) {
+  console.log('main this', this)
 
-  console.log('choose this', this)
+  const preparedParameters = prepareParameters(parameters)
+  console.log('preparedParameters', preparedParameters)
 
   return {
     from: assist(
-      function(prepareSource, parameters, source) {
-        console.log('from this', this)
-        console.log('parameters, source', parameters, source)
-        const result = prepareSource(source)
-        console.log('result', result)
+      function(preparedParameters, prepareSource, source) {
+        const preparedSource = prepareSource(source)
+        console.log('preparedSource', preparedSource)
+
+        const source4Reduce = preparedSource.type === 'array'
+                        ? preparedSource.source
+                        : [preparedSource.source]
+        
+        const output = source4Reduce.reduce(
+          function(result, sourceItem) {
+            result.push(
+              preparedParameters.reduce(
+                function(collection, parameter) {
+                  if(typeof(parameter) === 'string') {
+                    collection[parameter] = sourceItem[parameter]
+                  }else if(Array.isArray(parameter)) {
+                    const type = typeof(parameter[1])
+                    let value = undefined
+                    switch(type) {
+                      case 'string':
+                        collection[parameter[1]] = sourceItem[parameter[0]]
+                      break
+                      case 'function':
+                        value = parameter[1](sourceItem[parameter[0]])
+                        if(parameter.length === 3) {
+                          collection[parameter[2]] = value
+                        }else {
+                          collection[parameter[0]] = value
+                        }
+                      break;
+                    }
+                  }
+                  return collection
+                },
+                {}
+              )
+            )
+            return result
+          },
+          []
+        )
+        return preparedSource.type === 'array' ? output : output[0]
+
       },
       undefined,
+      preparedParameters,
       prepareSource,
-      prepareParameters(parameters)
     )
   }
   
 }
 
 
-exports.choose = assist(choose, undefined, prepareParameters, assist, prepareSource)
+exports.choose = assist(main, undefined, prepareParameters, assist, prepareSource)
+exports.assist = assist
 
 /* 
 function loseWeight(source) {
