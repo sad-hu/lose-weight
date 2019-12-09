@@ -1,5 +1,13 @@
 const {choose, assist} = require('../lose-weight')
 
+function test(cb, ...rest) {
+  try {
+    return cb(...rest)
+  }catch(e) {
+    console.log(e.message)
+  }
+}
+
 const source = [
   {
     [undefined]: 'un de fined'
@@ -9,6 +17,9 @@ const source = [
   },
   {
     b: 'b'
+  },
+  {
+    1: 'one'
   }
 ]
 const source2 = {b: 'bb'}
@@ -22,8 +33,9 @@ const rt = choose(
         {omg: 'This is the this!'},
         'AWSL'
       ),
-      'null'
-    ]
+      'null',
+    ],
+    '1'
   )
   .from(source)
 
@@ -45,6 +57,12 @@ console.log('rt2', rt2)
 console.log('rt3', rt3)
 console.log('rt4', rt4)
 console.log('rt5', rt5)
+
+test(choose, null, undefined)
+test(choose, Symbol('my symbol'))
+test(choose, 'a', 12345) // not ok
+test(choose, 'a', '0')
+
 
 /*
 const {loseWeight} = require('../lose-weight')
