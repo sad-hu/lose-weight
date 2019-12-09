@@ -33,12 +33,18 @@ const rt2 = choose(
   )
   .from(source2)
 
+const rt3 = choose('undefined', 'yoyo').from([])
+
+const rt4 = choose('undefined', 'yoyo').from({})
+
+const rt5 = choose('yellow', 'boots').from([{}, {}])
+
 
 console.log('rt', rt)
 console.log('rt2', rt2)
-// choose('key1', 'key2', 'key3', 'key4')
-
-// choose(function() {}, 'key', ['key2', 'newKey2'])
+console.log('rt3', rt3)
+console.log('rt4', rt4)
+console.log('rt5', rt5)
 
 /*
 const {loseWeight} = require('../lose-weight')

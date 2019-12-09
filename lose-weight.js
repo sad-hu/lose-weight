@@ -59,12 +59,8 @@ const prepareParameters = assist(
 const prepareSource = assist(
   function(throwError, source) {
     const type = Array.isArray(source) ? 'array' : typeof(source)
-    if(
-      ['array', 'object'].indexOf(type) === -1
-      || (type === 'array' && source.length === 0) 
-      // || (type === 'object' && Object.keys(source).length === 0)
-    ) {
-      throwError('[ERROR] 函数 from 的参数类型必须是 Array 或 Object，如果类型是 Array，其长度必须大于 0！')
+    if(['array', 'object'].indexOf(type) === -1) {
+      throwError('[ERROR] 函数 from 的参数类型必须是 Array 或 Object！')
     }
 
     return {
