@@ -513,7 +513,7 @@ const result = choose(
 
 欢迎大家发送 issue 和 pull request！
 
-注意：任何与贡献要求有冲突的地方，可以发 issue 讨论！
+:heavy_exclamation_mark: 任何与贡献要求有冲突的地方，可以发 issue 讨论！
 
 
 ## 更新概要
