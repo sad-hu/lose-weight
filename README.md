@@ -1,14 +1,13 @@
 # lose-weight
 
-:heavy_exclamation_mark: 2.0.0 文档撰写中
+:pencil: 2.0.0 文档撰写中
 
-:heavy_exclamation_mark: 旧版文档请访问 [1.x](https://github.com/sad-hu/lose-weight/tree/1.x)
+:loudspeaker: 旧版文档请访问 [1.x](https://github.com/sad-hu/lose-weight/tree/1.x)
 
-> :heart: 这是我在公司前端组里写的一个工具，最开始只是为了方便大家处理接口返回的数组类型数据，后来做了点扩展，支持对象类型的数据。数据的来源也不再限于接口，支持引入文件或其他任何形式得到的数据。
+> :heart: 这是我在公司前端组里写的一个工具，最开始只是为了方便处理接口返回的数组类型数据，后来做了点扩展，增加了对象类型数据的支持。数据的来源也不再限于接口，支持引入文件或其他任何形式得到的数据。
 
-:heavy_exclamation_mark: 这是一个可选的工具，通过了解将要处理的数据结构和快速浏览本文档，权衡各种需求后，再确定使用该工具可以带来明显收益！
+:heavy_exclamation_mark: 这是一个可选的工具，通过了解将要处理的数据结构和本文档，权衡各种因素后，再确定是否使用该工具！在实际工作中，请求接口得到的数据，引入文件（包，组件，工具或任何可被引入的东西）得到的数据，或其他任何形式得到的数据。其中的字段有些直接可用，有些需要加工后使用，有些需要重命名后使用，有些可以完全忽略。我们需要解构这些数据，期间按需对字段加工（如：使用 moment 对时间戳进行格式化）或重命名，如果是以数组形式组织的数据，还得循环解构。完成这些工作的代码量有时并不少，或许还散落各处，甚至字段的出处都难以明确！一般来说通过在接口处，引入文件处或任何生成数据的地方施加控制（如：约定），或者将原来的代码进行重构乃至重写，就能解决问题，至少是大大减少问题。
 
-- [起源](#起源)
 - [特色](#特色)
 - [环境要求](#环境要求)
 - [安装](#安装)
@@ -18,15 +17,9 @@
 - [更新概要](#更新概要)
 
 
-## 起源
-
-在实际项目中，请求接口得到的数据，引入文件（包，组件，工具或任何可被引入的东西）得到的数据，或其他任何形式得到的数据。其中的字段有些直接可用，有些需要加工后使用，有些需要重命名后使用，有些可以完全忽略。我们需要解构这些数据，期间按需对字段加工（如：使用 moment 对时间戳进行格式化）或重命名，如果是以数组形式组织的数据，还得循环解构。完成这些工作的代码一般来说不够聚拢！
-
-
 ## 特色
 
-- 可以处理数组类型的数据和对象类型的数据
-- 可以是任何形式产生的（常见的如：接口返回，引入文件）数据，只要符合上述类型要求
+- 可以处理数组类型和对象类型的数据；可以是任何形式产生的（如：接口返回，引入文件等）数据，只要符合类型要求
 - 可以将解构，重命名，数据加工代码聚拢在一起
 
 
@@ -76,8 +69,8 @@ import {choose, assist} from '@jkt/lose-weight'
 
 // 或者
 import * as loseWeight from '@jkt/lose-weight'
-loseWeight.choose(/* parameters */)
-loseWeight.assist(/* parameters */)
+// loseWeight.choose
+// loseWeight.assist
 ```
 
 :heavy_exclamation_mark: 不支持在**全局环境**中引用，如 `window.loseWeight` 或 `window.choose`，`window.assist`
@@ -121,12 +114,13 @@ export default connect(
 )(Layout(Discovery));
 ```
 
-这是一个普通的使用 redux 的 react 组件的一小部分代码。`mapStateToProps` 中的 `discovery` 里所有的 `state` 都在当前组件的 `this.props` 里了，用到的或没用到的。 `mapDispatchToProps` 使用本工具代替了原来的写法。
+这是一个普通的使用了 redux 的 react 组件的一小部分代码。`mapStateToProps` 中的 `discovery` 里所有的 `state` 都在当前组件的 `this.props` 里了，不管是用到的或没用到的。 `mapDispatchToProps` 使用本工具代替了原来的写法。
 
 
 ### 案例 2
 
 ``` javascript
+/* import someApi from 'somePackage' */
 import {choose} from '@jkt/lose-weight'
 import commonModel from "models/commonModel";
 import resumeModel from "models/resumeModel";
@@ -134,6 +128,7 @@ import positionModel from "models/positionModel";
 /*
   class某某某...
   batchAllCheck = e => {
+    // setUpdateState 出处也许要逐一查看引入的文件才能明确
     let { positionLists, setUpdateState } = this.props;
     let { checked } = e.target;
     positionLists.list.map(item => {
@@ -162,7 +157,7 @@ export default connect(
       setUpdateState: commonModel.actions.setUpdateState,
       positionLists: positionModel.actions.positionLists,
       resumeComplate: resumeModel.actions.resumeComplate,
-      // 其他的 dispatch
+      // 其他 dispatch
     }
     用本工具不是不可以
     // 明确 dispatch 来自哪里，但是写法繁琐
@@ -173,12 +168,11 @@ export default connect(
       ...choose('resumeComplate').from(resumeModel.actions),
       // 其他 dispatch
     }
-    也可以
-    // 不明确 dispatch 来自哪里，但是写法简单
+    // 也可以不明确 dispatch 来自哪里，但是写法简单
     choose(
       'setUpdateState',
       'positionLists',
-      'positionLists'
+      'resumeComplate'
     ).from({
       // 以下操作可能需要 babel 提供 ... 操作符支持
       ...commonModel.actions,
@@ -190,7 +184,7 @@ export default connect(
 )(Layout(Position));
 ```
 
-这还是一个普通的使用 redux 的 react 组件的一小部分代码。`mapDispatchToProps` 里这么多 `dispatch` 放 `this.props` 里？我敢打赌大多数并没用到。代码中来一个 `setUpdateState`（注释中的代码 `class某某某..` 里面），也许是在 `commonModel.actions` 里，我不确定，因为这个代码不是我写的:disappointed_relieved:，这里当然可以用本工具，但是建议权衡后按需使用本工具！
+这还是一个普通的使用了 redux 的 react 组件的一小部分代码。`mapDispatchToProps` 里这么多 `dispatch` 放 `this.props` 里？我敢打赌大多数并没用到。代码中来一个 `setUpdateState`（注释中的代码 `class某某某..` 里面），也许是在 `commonModel.actions` 里，我不确定，因为这个代码不是我写的:disappointed_relieved:，这里当然可以用本工具，但是建议权衡后按需使用本工具！
 
 
 ### 案例 3
@@ -271,9 +265,7 @@ export default connect(
   </div>
 </template>
 <script>
-/*
- * import someApi from 'somePackage'
- */
+/* import someApi from 'somePackage' */
 import {choose, assist} from '@jkt/lose-weight'
 
 export default {
