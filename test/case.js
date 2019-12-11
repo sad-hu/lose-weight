@@ -58,11 +58,33 @@ console.log('rt3', rt3)
 console.log('rt4', rt4)
 console.log('rt5', rt5)
 
-test(choose, null, undefined)
-test(choose, Symbol('my symbol'))
-test(choose, 'a', 12345) // not ok
-test(choose, 'a', '0')
+console.log('\n=== test ===\n')
 
+test(choose)
+test(choose, undefined)
+test(choose, [])
+test(choose, '')
+test(choose, 'ab')
+test(choose, ['a'])
+test(choose, ['a', 'b', 'c', 'd'])
+test(choose, [null, 'b'])
+test(choose, ['a', ''])
+test(choose, ['a', []])
+test(choose, ['a', ''])
+test(choose, ['a', 'b', 'c'])
+test(choose, ['a', function() {}, null])
+test(choose, ['a', function() {}, ''])
+test(choose, ['a', function() {}, 3])
+// test(choose, null, undefined)
+// test(choose, Symbol('my symbol'))
+// test(choose, 'a', 12345) // not ok
+// test(choose, 'a', '0')
+
+const rt6 = choose(1, [3, 2]).from([0, 1, 2, 3, 4])
+console.log(rt6)
+
+const rt7 = choose(1, [3, function(value) { return value + '[3]'}, 2]).from([0, 1, 2, 3, 4])
+console.log(rt7)
 
 /*
 const {loseWeight} = require('../lose-weight')
