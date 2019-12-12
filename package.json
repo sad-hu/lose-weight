@@ -1,6 +1,6 @@
 {
   "name": "@jkt/lose-weight",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-alpha.2",
   "description": "用于提取 Array 类型和 Object 类型数据的字段",
   "keywords": [
     "choose",
