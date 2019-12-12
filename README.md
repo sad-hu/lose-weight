@@ -46,8 +46,8 @@
 
 ``` bash
 # 如果是在 windows powershell 中，可能需要这样
-# npm install ‘@jkt/lose-weight’ --save
-npm install @jkt/lose-weight --save
+# npm install ‘@jkt/lose-weight@~2.0.0-alpha’ --save
+npm install @jkt/lose-weight@~2.0.0-alpha --save
 ```
 
 ### 在代码中引用
@@ -534,6 +534,7 @@ const result2 = choose(
 ## 更新概要
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 - 1.0.15 添加严格模式
 - 1.0.14 修缮文档
 - 1.0.13 迁移仓库到 [github.com](https://github.com)，修缮文档
@@ -548,5 +549,8 @@ const result2 = choose(
 - 1.0.4 删除无用注释
 - 1.0.3 修复 handlers 中函数项的函数名被前端代码压缩工具处理后，函数名被混淆，无法通过 `函数.name` 获取期望的函数名
 =======
+=======
+- 2.0.0-alpha.2 修缮文档，更正安装说明
+>>>>>>> 2.x
 - 2.0.0-alpha.1 相比 1.x，提供更简单的 api，被处理数据除了支持原有的 Array 类型，新增 Object 类型支持，新增字段重命名支持，提供更简单的字段选项和工具注入方式
 >>>>>>> 2.x
