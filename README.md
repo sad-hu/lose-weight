@@ -46,8 +46,8 @@
 
 ``` bash
 # 如果是在 windows powershell 中，可能需要这样
-# npm install ‘@jkt/lose-weight@~2.0.0-alpha’ --save
-npm install @jkt/lose-weight@~2.0.0-alpha --save
+# npm install ‘@jkt/lose-weight’ --save
+npm install @jkt/lose-weight --save
 ```
 
 ### 在代码中引用
@@ -533,6 +533,7 @@ const result2 = choose(
 
 ## 更新概要
 
+- 2.0.0-alpha.4 更正安装说明
 - 2.0.0-alpha.3 修缮文档，更正版本信息
 - 2.0.0-alpha.2 修缮文档，更正安装说明
 - 2.0.0-alpha.1 相比 1.x，提供更简单的 api，被处理数据除了支持原有的 Array 类型，新增 Object 类型支持，新增字段重命名支持，提供更简单的字段选项和工具注入方式
