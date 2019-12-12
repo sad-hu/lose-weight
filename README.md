@@ -1,6 +1,6 @@
 # lose-weight
 
-## 这是 2.0.0-alpha.1 版
+## 这是 2.0.0-alpha 版
 
 :loudspeaker: 旧版文档请访问 [1.x](https://github.com/sad-hu/lose-weight/tree/1.x)
 
@@ -533,5 +533,6 @@ const result2 = choose(
 
 ## 更新概要
 
+- 2.0.0-alpha.3 修缮文档，更正版本信息
 - 2.0.0-alpha.2 修缮文档，更正安装说明
 - 2.0.0-alpha.1 相比 1.x，提供更简单的 api，被处理数据除了支持原有的 Array 类型，新增 Object 类型支持，新增字段重命名支持，提供更简单的字段选项和工具注入方式
