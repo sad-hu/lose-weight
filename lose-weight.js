@@ -114,7 +114,6 @@ function main(prepareParameters, assist, prepareSource, ...parameters) {
     from: assist(
       function(preparedParameters, prepareSource, source) {
         const preparedSource = prepareSource(source)
-        console.log(preparedParameters)
         
         const output = (
           preparedSource.type === 'array'
