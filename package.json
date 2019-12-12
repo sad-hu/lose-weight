@@ -1,11 +1,19 @@
 {
   "name": "@jkt/lose-weight",
-  "version": "1.0.15",
-  "description": "为接口返回数据瘦身，只提取需要的字段，并可将其格式化",
+  "version": "2.0.0-alpha.1",
+  "description": "用于提取 Array 类型和 Object 类型数据的字段",
   "keywords": [
-    "lose",
-    "weight",
-    "lose weight"
+    "choose",
+    "deconstruction",
+    "field",
+    "format",
+    "rename",
+    "选取",
+    "提取",
+    "解构",
+    "字段",
+    "格式化",
+    "重命名"
   ],
   "main": "lose-weight.js",
   "scripts": {
