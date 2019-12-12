@@ -1,5 +1,7 @@
 # lose-weight
 
+:loudspeaker: 工具新版已经发布，请访问 [2.x](https://github.com/sad-hu/lose-weight)！！！2.x 的 api 不兼容 1.x！1.x 版本只修复问题和修缮文档，新功能不再增加！
+
 > 这是我在公司前端组里写的一个工具，为了方便大家处理部分接口返回的数据和部分本地的数据。
 
 - [起源](#起源)
@@ -30,7 +32,7 @@
 
 ## 环境要求
 
-在用户代理 ua（以下简称 ua） 运行时环境；
+在用户代理 （以下简称 ua） 运行时环境；
 
 - 需要支持 Array.isArray api
 - 需要支持 Array.prototype.reduce api
@@ -49,8 +51,8 @@
 
 ``` bash
 # 如果是在 windows powershell 中，可能需要这样
-# npm i ‘@jkt/lose-weight’ --save
-npm i @jkt/lose-weight --save
+# npm i ‘@jkt/lose-weight@~1’ --save
+npm i @jkt/lose-weight@~1 --save
 ```
 
 ### 在代码中引用
@@ -63,8 +65,8 @@ const {loseWeight} = require('@jkt/lose-weight')
 或者
 
 ``` javascript
+// ua
 /*
-  ua
   类似 create-react-app，vue-cli，Angular CLI 等工具创建的前端项目，
   内部一般都有 babel 提供支持
  */
@@ -270,6 +272,7 @@ loseWeight(
 
 ## 更新概要
 
+- 1.0.16 添加新版工具链接，修缮文档
 - 1.0.15 添加严格模式
 - 1.0.14 修缮文档
 - 1.0.13 迁移仓库到 [github.com](https://github.com)，修缮文档
