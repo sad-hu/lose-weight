@@ -1,10 +1,11 @@
 'use strict'
 
 function assist(fn, thisArg, ...restParameters) {
-  return fn.bind(
-    thisArg,
-    ...restParameters
-  )
+  return fn ? fn.bind(
+                thisArg,
+                ...restParameters
+              )
+            : function() {}
 }
 
 function throwError(message) {

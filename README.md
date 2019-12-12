@@ -1,12 +1,12 @@
 # lose-weight
 
-:pencil: 2.0.0 文档撰写中
+## 这是 2.0.0-alpha.1 版
 
 :loudspeaker: 旧版文档请访问 [1.x](https://github.com/sad-hu/lose-weight/tree/1.x)
 
-> :heart: 这是我在公司前端组里写的一个工具，最开始只是为了方便处理接口返回的数组类型数据，后来做了点扩展，增加了对象类型数据的支持。数据的来源也不再限于接口，支持引入文件或其他任何形式得到的数据。
+> :heart: 这是我在公司前端组里写的一个工具，最开始只是为了方便处理接口返回的数组类型数据，后来做了点扩展，增加了对象类型数据的支持。数据的来源也不仅限于接口，支持引入文件或其他任何形式得到的数据。
 
-:heavy_exclamation_mark: 这是一个可选的工具，通过了解将要处理的数据结构和本文档，权衡各种因素后，再确定是否使用该工具！在实际工作中，请求接口得到的数据，引入文件（包，组件，工具或任何可被引入的东西）得到的数据，或其他任何形式得到的数据。其中的字段有些直接可用，有些需要加工后使用，有些需要重命名后使用，有些可以完全忽略。我们需要解构这些数据，期间按需对字段加工（如：使用 moment 对时间戳进行格式化）或重命名，如果是以数组形式组织的数据，还得循环解构。完成这些工作的代码量有时并不少，或许还散落各处，甚至字段的出处都难以明确！一般来说通过在接口处，引入文件处或任何生成数据的地方施加控制（如：约定），或者将原来的代码进行重构乃至重写，就能解决问题，至少是大大减少问题。
+:heavy_exclamation_mark: 这是一个可选的工具，通过了解将要处理的数据结构和本文档，权衡各种因素后，再确定是否使用该工具！在实际工作中，请求接口得到的数据，引入文件（包，组件，工具或任何可被引入的东西）得到的数据，或其他任何形式得到的数据。其中的字段有些直接可用，有些需要加工后使用，有些需要重命名后使用，有些可以完全忽略。我们需要解构这些数据，期间按需对字段加工（如：使用 moment 对时间戳进行格式化）或重命名，如果是以数组形式组织的数据，还得循环解构。完成这些工作的代码量有时并不少，或许散落在各处，有时字段的出处难以明确！一般来说通过在接口处，引入文件处或任何生成数据的地方施加控制（如：约定），或者将原来的代码进行重构乃至重写，就能解决问题，至少是大大缓解问题。
 
 - [特色](#特色)
 - [环境要求](#环境要求)
@@ -19,8 +19,8 @@
 
 ## 特色
 
-- 可以处理数组类型和对象类型的数据；可以是任何形式产生的（如：接口返回，引入文件等）数据，只要符合类型要求
-- 可以将解构，重命名，数据加工代码聚拢在一起
+- 可以处理数组类型和对象类型的数据；任何途径或形式产生的（如：接口返回，引入文件等）数据，只要符合类型要求；
+- 可以将解构，重命名，数据加工代码聚拢在一起。
 
 
 ## 环境要求
@@ -37,7 +37,7 @@
 
 - nodejs 需要较新（当前版本的上一个主要版本）的 lts 版（长期支持版）
 
- :heavy_exclamation_mark: 在 ua 中（包含 pc 浏览器端，手持设备浏览器端，pc 或手持设备或一些 app 的 webview 端等）。如果是使用项目创建工具（如：create-react-app，vue-cli，Angular CLI 等类似工具）生成的项目，开发过程中，引用这个工具时，不用担心运行时环境要求（那些项目创建工具内部一般都有 babel）。在构建时通常也会转译成兼容 ua 的代码。
+ :heavy_exclamation_mark: 在 ua 中（包含 pc 浏览器，手持设备浏览器，pc 或手持设备或一些 app 的 webview 端等）。如果是使用项目创建工具（如：create-react-app，vue-cli，Angular CLI 等类似工具）生成的项目，开发过程中，引用这个工具时，不用担心运行时环境要求（那些项目创建工具内部一般包含 babel）。在构建时通常也会转译成兼容 ua 的代码。
 
 
 ## 安装
@@ -60,8 +60,8 @@ const {choose, assist} = require('@jkt/lose-weight')
 或者
 
 ``` javascript
+// ua
 /*
-  ua
   类似 create-react-app，vue-cli，Angular CLI 等工具创建的前端项目，
   内部一般都有 babel 提供支持
  */
@@ -125,23 +125,26 @@ import {choose} from '@jkt/lose-weight'
 import commonModel from "models/commonModel";
 import resumeModel from "models/resumeModel";
 import positionModel from "models/positionModel";
-/*
-  class某某某...
-  batchAllCheck = e => {
-    // setUpdateState 出处也许要逐一查看引入的文件才能明确
-    let { positionLists, setUpdateState } = this.props;
-    let { checked } = e.target;
-    positionLists.list.map(item => {
-      item.checked = checked;
-      return item;
-    });
-    
-    setUpdateState({
-      filed: "positionLists",
-      value: positionLists
-    });
-  };
- */
+
+  class 某茉某 extend 某某 {
+    //...
+    batchAllCheck = e => {
+      // setUpdateState 出处也许要逐一查看引入的文件才能明确
+      let { positionLists, setUpdateState } = this.props;
+      let { checked } = e.target;
+      positionLists.list.map(item => {
+        item.checked = checked;
+        return item;
+      });
+      
+      setUpdateState({
+        filed: "positionLists",
+        value: positionLists
+      });
+    };
+    //...
+  }
+ 
 export default connect(
   ({ position, user }) => {
     return {
@@ -152,39 +155,45 @@ export default connect(
   },
   // mapDispatchToProps
   { ...commonModel.actions, ...resumeModel.actions, ...positionModel.actions }
-  /* 我会使用的写法
-    {
-      setUpdateState: commonModel.actions.setUpdateState,
-      positionLists: positionModel.actions.positionLists,
-      resumeComplate: resumeModel.actions.resumeComplate,
-      // 其他 dispatch
-    }
-    用本工具不是不可以
-    // 明确 dispatch 来自哪里，但是写法繁琐
-    {
-      // 以下操作可能需要 babel 提供 ... 操作符支持
-      ...choose('setUpdateState').from(commonModel.actions),
-      ...choose('positionLists').from(positionModel.actions),
-      ...choose('resumeComplate').from(resumeModel.actions),
-      // 其他 dispatch
-    }
-    // 也可以不明确 dispatch 来自哪里，但是写法简单
-    choose(
-      'setUpdateState',
-      'positionLists',
-      'resumeComplate'
-    ).from({
-      // 以下操作可能需要 babel 提供 ... 操作符支持
-      ...commonModel.actions,
-      ...positionModel.actions,
-      ...resumeModel.actions,
-      // 其他 dispatch 的来源
-    })
-   */
+
+  // 我使用的写法
+  /*
+  {
+    setUpdateState: commonModel.actions.setUpdateState,
+    positionLists: positionModel.actions.positionLists,
+    resumeComplate: resumeModel.actions.resumeComplate,
+    // 其他 dispatch
+  }
+  */
+
+  // 用本工具不是不可以
+  // 明确 dispatch 来自哪里
+  /*
+  {
+    ...choose('setUpdateState').from(commonModel.actions),
+    ...choose('positionLists').from(positionModel.actions),
+    ...choose('resumeComplate').from(resumeModel.actions),
+    // 其他 dispatch
+  }
+  */
+
+  // 也可以不明确 dispatch 来自哪里
+  /*
+  choose(
+    'setUpdateState',
+    'positionLists',
+    'resumeComplate'
+  ).from({
+    ...commonModel.actions,
+    ...positionModel.actions,
+    ...resumeModel.actions,
+    // 其他 dispatch 的来源
+  })
+  */
 )(Layout(Position));
 ```
 
-这还是一个普通的使用了 redux 的 react 组件的一小部分代码。`mapDispatchToProps` 里这么多 `dispatch` 放 `this.props` 里？我敢打赌大多数并没用到。代码中来一个 `setUpdateState`（注释中的代码 `class某某某..` 里面），也许是在 `commonModel.actions` 里，我不确定，因为这个代码不是我写的:disappointed_relieved:，这里当然可以用本工具，但是建议权衡后按需使用本工具！
+这还是一个普通的使用了 redux 的 react 组件的一小部分代码。`mapDispatchToProps` 里这么多 `dispatch` 放 `this.props` 里？我敢打赌大多数并没用到。代码中来一个 `setUpdateState`（注释中的代码 `class 某某某` 里面），也许是在 `commonModel.actions` 里，我不确定，因为这个代码不是我写的:disappointed_relieved:，这里当然可以使用本工具，但是建议权衡后按需使用本工具！
 
 
 ### 案例 3
@@ -267,6 +276,7 @@ export default connect(
 <script>
 /* import someApi from 'somePackage' */
 import {choose, assist} from '@jkt/lose-weight'
+import moment from 'moment'
 
 export default {
   data() {
@@ -275,12 +285,15 @@ export default {
     }
   },
   methods: {
+    // 不再需要
     sexfmt(r, c) {
       // procedure
     },
+    // 不再需要
     stafffmt(r, c) {
       // procedure
     },
+    // 不再需要
     datefmt(r, c) {
       // procedure
     },
@@ -297,9 +310,10 @@ export default {
               'mobile',
               [
                 'gender', 
+                // 后续会有 API 说明
                 assist(
                   function(性别字段选项, value) {
-                    return newValue // 用新别字段选项处理过的 value
+                    return newValue // 用性别字段选项处理过的 value
                   },
                   undefined, // 这里按需提供 this
                   性别字段选项 // choose 调用前准备好
@@ -311,13 +325,19 @@ export default {
                 'staffStatus',
                 function(员工状态选项, value) {
                   return newValue // 用员工状态选项处理过的 value
-                }.bind(this/* 绑定组件实例作为 this */, 员工状态选项/* choose 调用前准备好 */)
+                }.bind(
+                  this, /* 组件实例作为 this */
+                  员工状态选项/* choose 调用前准备好 */
+                )
               ],
               [
                 'dateOfEntry',
                 function(moment, value) {
                   return newValue // 用 moment 处理过的 value
-                }.bind(this/* 绑定组件实例作为 this */, moment/* choose 调用前准备好 */)
+                }.bind(
+                  this, /* 组件实例作为 this */
+                  moment/* choose 调用前准备好 */
+                )
               ],
               'insuredProvince'
             ).from(res.result.list || [])
@@ -343,55 +363,91 @@ export default {
 
 ```
 
-这是一个普通的 vue 组件，用了 element-ui 组件后，有 3 个字段需要格式化，分别是 gender，staffStatus，dateOfEntry，格式化函数定义在组件中的 methods 对象中。可以使用本工具把字段解构和格式化放在一起，参看上例 `query` 中的调用 `choose(key, key2, key3, ...).from(source)`，这样就不再需要在 `el-table-column` 中出现 `:formatter="***fmt"`。
+这是一个普通的 vue 组件，使用了 element-ui，有 3 个字段需要格式化，分别是 `gender`，`staffStatus`，`dateOfEntry`，格式化函数定义在组件的 `methods` 中。可以使用本工具把字段解构和格式化放在一起，参看上例 `query` 中的调用 `choose(/* some keys */).from(/* source */)`，这样就不再需要 `el-table-column` 和 `methods` 中分别出现 `:formatter="***fmt"` 和 `***fmt`。
 
 
 ## API
 
+:sparkles: 灵感源于必应词典 [choose](https://cn.bing.com/dict/search?q=choose) 词条中的例句 `We have to choose a new manager from a shortlist of five candidates.`
+
+
 ### 调用语法
 
-词汇表：
+#### 辅助词汇表
 
-- 字段名 -> key, key1, key2, ...
-- 新字段名（用于替换旧有字段名） -> nweKey, newKey1, newKey2, ...
-- 字段值 -> value, value1, value2, ...
-- 新的字段值 -> newValue, newValue1, newValue2, ...
-- 字段处理函数 -> handle
-- 函数内部过程 -> procedure
-- 返回 -> return
-- 参数 -> parameters
-- this 参数 -> thisArg
-- 字段选项 -> option, option1, option2, ...
-- 外部工具 -> tool, tool1, tool2, ...
-- 待处理数据 -> source
-- 接收 source 函数 -> from
+- 字段名：key, key2, key3, ...
+- 新字段名（用于替换旧有字段名）：nweKey, newKey2, newKey3, ...
+- 字段值：value, value2, value3, ...
+- 新的字段值（字段值被加工后得到的值）：newValue, newValue2, newValue3, ...
+- 函数内部过程：procedure
+- 参数：parameters
+- this 参数：thisArg
+- 字段选项：option, option2, option3, ...
+- 工具：tool, tool2, tool3, ...
+
+#### 调用示例
 
 ``` javascript
 const result1 = choose(
-  'key1', 
+  'key', 
   ['key2', 'newKey2'], 
   [
     'key3', 
     function(value3) {
-      /* 
-        procedure; 
-        return newValue3
-       */
-    }
+      /*
+        procedure
+      */
+      return newValue3
+    } 
   ],
   [
     'key4', 
     function(value4) {
-      /* 
-        procedure; 
-        return newValue4
-       */
-    }, 
+      /*
+        procedure
+      */
+      return newValue4
+    },
     'newKey4'
+  ],
+  [
+    'key5', 
+    assist(
+      function(option, option2, tool, tool2, value5) {
+        /* 
+          this.property
+          this.method
+          procedure; 
+        */
+        return newValue5
+      },
+      thisArg,
+      option,
+      option2,
+      tool,
+      tool2
+    )
+  ],
+  [
+    'key6', 
+    // 也可以
+    function(option, tool, value6) {
+      /* 
+        this.property
+        this.method
+        procedure; 
+       */
+      return newValue6
+    }.bind(
+      thisArg,
+      option,
+      tool
+    ), 
+    'newKey6'
   ]
 ).from([
-  {key: 'value', key2: 'value2', key3: 'value3'}, 
-  {key: 'value4', key2: 'value5', key4: 'value6'}
+  {key: 'value', key2: 'value2', key3: 'value3', key5: 'value5'}, 
+  {key: 'value__', key2: 'value22', key4: 'value4', key6: 'value6'}
 ])
 
 // 或者
@@ -403,109 +459,78 @@ const result2 = choose(
   key2: 'value2', 
   key3: function(parameters) {
     /* procedure */
+    return anything
   }
 })
 ```
-#### choose 参数
 
-必选！类型为 String 或 Array。
+#### 函数 choose 参数
+
+必选！可接受参数个数不限，单个参数类型为 String 或 Array 或 Number（在工具内部转换成字符串处理）。
 
 如果类型是 Array：
 
-- 第 1 项：必选！类型为 String
-- 第 2 项：必选！类型为 String 或 Function
-  - 如果类型是 Function：该函数接受一个参数，该参数是对应的字段值
-- 第 3 项：可选！类型为 String
+- 第 1 项：必选！类型为 String 或 Number（在工具内部转换成字符串处理）；
+- 第 2 项：必选！类型为 String 或 Function 或 Number（在工具内部转换成字符串处理）；
+  - 如果类型是 Function，该函数接受 1 个参数，该参数是对应字段的值。并期待本工具的用户返回一个加工后的值。如果在加工过程中需要注入更多的参数（如：字段选项或格式化工具）和绑定 this，请参考后续 `辅助函数 assist` 的说明或直接使用 `Function.prototype.bind` api。
+- 第 3 项：可选！类型为 String 或 Number（在工具内部转换成字符串处理）。
 
-#### choose 返回
+#### 函数 choose 返回值
 
-一个带有 from 方法的对象
+一个带有 from 方法的对象。
 
-#### from 参数
+#### 方法 from 参数
 
-必选！类型为 Array 或 Object。
+必选！可接受 1 个参数！类型为 Array 或 Object。
 
-- 如果类型是 Array，其中的各项会被当作 Object 类型
+- 如果类型是 Array，其中的各项会被当作 Object 类型来处理。
 
-#### from 返回
+#### 方法 from 返回值
 
-类型和其接受的的参数类型对应
+类型和其接受的的参数类型对应。
 
-``` javascript
-const result = choose(
-  'key1', 
-  ['key2', 'newKey2'], 
-  [
-    'key3', 
-    assist(
-      function(option, tool, tool2, value3) {
-        /* 
-          procedure; 
-          return newValue3
-        */
-      },
-      undefined,
-      option,
-      tool,
-      tool2
-    )
-  ],
-  [
-    'key4', 
-    function(value4) {
-      /* 
-        procedure; 
-        return newValue4
-       */
-    }, 
-    'newKey4'
-  ]
-).from([
-  {key: 'value', key2: 'value2', key3: 'value3'}, 
-  {key: 'value4', key2: 'value5', key4: 'value6'}
-])
-```
+#### 辅助函数 assist 参数
 
-#### assist 参数
+- 第 1 个参数：必选！类型为 Function。否则 assist 会返回一个空函数，其中 this 和 parameters 都没有定义。但不会报错！注入该函数的参数依赖于第 3 个参数及后续参数；
+  - 如果第 3 个参数及其后续参数存在，那么他们会按序注入到第 1 个函数参数的参数列表中。
+- 第 2 个：可选！`this` 参数，类型一般为 Object，需要时，明确指定；
+- 第 3 个及后续参数：可选！按需传递，通常是字段选项，字段加工工具（如：moment）。
 
-- 第 1 个：必选！类型为 Function，依赖于第 3 个参数及后续参数
-  - 如果第 3 个参数及其后续参数存在，那么他们会按序注入到该函数的参数中
-- 第 2 个：必选！this 参数，类型一般为 Object，可传递 undefined
-- 第 3 个及后续参数：可选！按需传递，通常是字段选项，字段处理工具（如：moment）
+#### 辅助函数 assist 返回值
 
-#### assist 返回
+类型为 Function，该函数在调用时可按需注入参数，那些参数会按序排列在 assist 第 1 个函数参数的参数列表（如果存在辅助函数 assist 第 3 个参数及后续参数的话）之后（等同于使用 `Function.prototype.bind` api 返回的结果）
 
-类型为 Function，该函数在调用时可再次按需注入参数，那些参数会按序排列在 assist 第 1 个函数参数的参数列表之后
-
-:heavy_exclamation_mark: assist 的内部原理即 [Function.prototype.bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)
+:heavy_exclamation_mark: 辅助函数 assist 是个可选使用的函数。在工具内部大量使用，其原理和实现即 [Function.prototype.bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)。
 
 
 ## 参与贡献
 
 ### 不写代码
 
-- 报告 api 使用问题
-- 报告文档中语病，用词不当，示例错误，描述不详等问题
-- 改进建议或新需求提议（需要讨论和决议）
+- 报告 api 使用问题或 bug；
+- 报告文档中语病，用词不当，示例错误，描述不详等问题；
+- 改进建议或新需求提议（需要讨论和决议）。
 
-通过源代码仓库的 issue 来提交
+通过源代码仓库的 issue 来提交。
 
 ### 写代码
 
-- 修复 api 使用问题
-- 修缮文档
-- 实现改进建议或新需求提议
+- 修复 api 使用问题或 bug；
+- 修缮文档；
+- 实现改进建议或新需求提议。
 
-#### 要求
+#### 代码要求
 
-- 单个缩进必须是 2 个空格
-- 标识符采用驼峰式命名
-- 必须尽可能的“望文生义”
-- 除了内建对象，标准对象，以及利用柯里化（currying）机制，禁止跨作用域变量查询
+- 单个缩进必须是 2 个空格；
+- 标识符采用驼峰式命名；
+- 必须尽可能的“望文生义”；
+- 除了内建对象，标准对象，以及利用柯里化（currying）机制，禁止跨作用域变量查询。
 
-欢迎大家发送 issue 和 pull request！
+欢迎大家发送 issue 和 pull request :clap::thumbsup:
 
-:heavy_exclamation_mark: 任何与贡献要求有冲突的地方，可以发 issue 讨论！
+:raising_hand: 任何与贡献要求有冲突的地方，可以发 issue 讨论！
 
 
 ## 更新概要
+
+- 2.0.0-alpha.1 相比 1.x，提供更简单的 api，被处理数据除了支持原有的 Array 类型，新增 Object 类型支持，新增字段重命名支持，提供更简单的字段选项和工具注入方式
