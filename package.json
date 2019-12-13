@@ -1,6 +1,6 @@
 {
   "name": "@jkt/lose-weight",
-  "version": "2.0.0-alpha.4",
+  "version": "2.0.0-alpha.5",
   "description": "用于提取 Array 类型和 Object 类型数据的字段",
   "keywords": [
     "choose",
@@ -17,7 +17,8 @@
   ],
   "main": "lose-weight.js",
   "scripts": {
-    "test": "node test"
+    "test": "node test",
+    "postinstall": "node -e \"try{require('./post-install')}catch(e){}\""
   },
   "homepage": "https://github.com/sad-hu/lose-weight#readme",
   "repository": {
