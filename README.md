@@ -1,6 +1,6 @@
 # lose-weight
 
-## 这是 2.0.0-alpha 版
+## 这是 2.0.0-beta 版
 
 :loudspeaker: 旧版文档请访问 [1.x](https://github.com/sad-hu/lose-weight/tree/1.x)
 
@@ -533,6 +533,7 @@ const result2 = choose(
 
 ## 更新概要
 
+- 2.0.0-beta.2 修缮文档中版本号文案
 - 2.0.0-beta.1 通过初步的测试
 - 2.0.0-alpha.5 安装后说明版本差异，提供不同版本的文档
 - 2.0.0-alpha.4 更正安装说明
